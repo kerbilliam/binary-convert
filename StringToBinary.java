@@ -37,10 +37,24 @@ public class StringToBinary {
     public static String wordToBinary(String input) {
         String binOutput = "";
         for (int i = 0; i < input.length(); i++) {
-            binOutput += Integer.toBinaryString((int)input.charAt(i));
+            String charBin = Integer.toBinaryString((int)input.charAt(i));
+            binOutput += leadingZeros(charBin);
+            // binOutput += Integer.toBinaryString((int)input.charAt(i));
             if (i < input.length()) binOutput += " ";
         }
-        return binOutput;
+        return leadingZeros(binOutput);
+    }
+
+    // returns the binary with the proper amount of leading zeros for a byte
+    public static String leadingZeros(String bin) {
+        if (bin.length() < 8) {
+            int x = 8 - bin.length();
+            String out = "";
+            for (int i = 0; i < x; i++) out += "0";
+            out += bin;
+            return out;
+        }
+        return bin; // else
     }
 
     // Asks user if they want to convert strings from file
