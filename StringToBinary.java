@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.io.*;
 
 public class StringToBinary {
+    private static final String DEFAULT_FILE_OUTPUT = "outputFiles/out.txt";
     // Asks for an input from user and returns it as string
     // Type messeage you want to display next to user input line
     // ex: getIntInput("(input): ") --> (input): _
@@ -77,6 +78,7 @@ public class StringToBinary {
             }
     
         } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(StrColor.GREEN + "Manual Method has been chosen." + StrColor.RESET);
             return false;
         }
     }
@@ -119,7 +121,7 @@ public class StringToBinary {
     // False = output to terminal
     public static boolean getOutputMode(Scanner console) {
         System.out.println("Choose an output method.");
-        System.out.println(StrColor.CYAN + "Default output method is to terminal." + StrColor.RESET);
+        System.out.println(StrColor.CYAN + "Default output is to terminal." + StrColor.RESET);
         System.out.println(StrColor.YELLOW + "Output to file?" + StrColor.RESET);
         String input = getStringInput(console, "(Yes?): ").toLowerCase();
         try {
@@ -132,9 +134,23 @@ public class StringToBinary {
     }
 
     public static void strToFile(Scanner console, String in) throws FileNotFoundException{
-        PrintStream output = new PrintStream(new File(getStringInput(console, "(output file): ")));
+        String filePath = getStringInput(console, "(output file): ");
+        if (filePath.isEmpty()) filePath = DEFAULT_FILE_OUTPUT;
+        PrintStream output = new PrintStream(new File(filePath));
         output.print(in);
         output.close();
+
+
+        // try {
+        //     PrintStream output = new PrintStream(new File(getStringInput(console, "(output file): ")));
+        //     output.print(in);
+        //     output.close();
+    
+        // } catch (FileNotFoundException e) {
+        //     PrintStream output = new PrintStream(new File(DEFAULT_FILE_OUTPUT));
+        //     output.print(in);
+        //     output.close();
+        // } 
     }
 
     public static void main(String[] args) throws FileNotFoundException{
@@ -146,6 +162,8 @@ public class StringToBinary {
             String output = binFileConvert(inputFile);
             // outputs to file or terminal
             if (getOutputMode(console)) {
+                System.out.println("Input existing or new file location.");
+                System.out.println(StrColor.CYAN + "Default file location: '" + StrColor.YELLOW + DEFAULT_FILE_OUTPUT + "'" + StrColor.RESET);
                 strToFile(console, output);
                 System.out.println("Result printed to file.");
             } else System.out.println(output);
