@@ -1,12 +1,13 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.*;
 
 public class StringToBinary {
     // Asks for an input from user and returns it as string
     // Type messeage you want to display next to user input line
     // ex: getIntInput("(input): ") --> (input): _
     public static String getStringInput(Scanner console, String inputIndicator) {
-        System.out.print(ColoredOutput.GREEN + inputIndicator + ColoredOutput.RESET);
+        System.out.print(StrColor.GREEN + inputIndicator + StrColor.RESET);
         String userInput = console.nextLine();
         return userInput;
     }
@@ -14,22 +15,18 @@ public class StringToBinary {
     // Asks explicitly for an int input from user and returns it
     // Type messeage you want to display next to user input line
     // ex: getIntInput("(input): ") --> (input): _
-    public static int getIntInput(String inputIndicator) {
-        Scanner console = new Scanner(System.in);
-        boolean correctInput = false;
-        while (!correctInput) {
+    public static int getIntInput(Scanner console, String inputIndicator) {
+        while (true) {
             try {
-                System.out.print(ColoredOutput.GREEN + inputIndicator + ColoredOutput.RESET);
+                System.out.print(StrColor.GREEN + inputIndicator + StrColor.RESET);
                 int userInput = console.nextInt();
-                console.close();
                 return userInput;
     
             } catch (InputMismatchException e) { // Scanner built in exception
-                System.out.println(ColoredOutput.RED + "Invalid input type. Please type an integer." + ColoredOutput.RESET);
-                console.reset();
+                System.out.println(StrColor.RED + "Invalid input. Please type an integer." + StrColor.RESET);
+                console.nextLine(); // Clear the invalid input from the buffer
             }
         }
-        return 0; // fallback value in case of while loop bug
     }
 
     // Converts every character within a line of input String to its ASCII binary equivalent
@@ -63,8 +60,8 @@ public class StringToBinary {
     public static boolean getInputMode(Scanner console) {
         System.out.println("Manual Method: Manually type your input into the terminal.\n" + 
         "Input from File Method: Type the location of a text file into the terminal.");
-        System.out.println(ColoredOutput.CYAN + "Default input method is manual");
-        System.out.println(ColoredOutput.YELLOW + "Input from file?" + ColoredOutput.RESET);
+        System.out.println(StrColor.CYAN + "Default input method is manual");
+        System.out.println(StrColor.YELLOW + "Input from file?" + StrColor.RESET);
         String input = getStringInput(console, "(Yes?): ");
         input = input.toLowerCase();
 
@@ -73,7 +70,7 @@ public class StringToBinary {
             System.out.println("Input from File Method has been chosen.");
             return true;
         } else {
-            System.out.println("Manual Method has been chosen.");
+            System.out.println(StrColor.GREEN + "Manual Method has been chosen." + StrColor.RESET);
             return false;
         }
     }
@@ -91,13 +88,24 @@ public class StringToBinary {
         return binOutput;
     }
 
-    public static void main(String[] args) {
+    public static File getFile(Scanner console) {
+        while (true) {
+            File file = new File(getStringInput(console, "(file): "));
+            if (file.exists()) return file;
+            else {
+                System.out.println(StrColor.RED + "File not found!");
+            }
+        }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner console = new Scanner(System.in);
 
         System.out.println("Choose an input method.");
         // If player has chosen to input from file
         if (getInputMode(console)) {
             // function to read from file
+            Scanner file = new Scanner(new File(getStringInput(console, "(file): ")));
         } else {
             System.out.println("Input a string to convert to binary.");
             String input = getStringInput(console, "(input): ");

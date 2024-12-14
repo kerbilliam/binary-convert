@@ -4,7 +4,7 @@
  * This class was made with the help of generative AI
  */
 
-public class ColoredOutput {
+public class StrColor {
     // ANSI color codes
     public static final String RESET = "\033[0m";  // Reset color
     public static final String RED = "\033[31m";  // Red color
