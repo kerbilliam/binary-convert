@@ -121,18 +121,35 @@ public class StringToBinary {
         else return false;
     }
 
-    public static void main(String[] args) {
+    public static void strToFile(Scanner console, String in) throws FileNotFoundException{
+        PrintStream output = new PrintStream(new File(getStringInput(console, "(output file): ")));
+        output.print(in);
+        output.close();
+    }
+
+    public static void main(String[] args) throws FileNotFoundException{
         Scanner console = new Scanner(System.in);
 
         if (getInputMode(console)) {
-            // Convert from file
+            // convert from file
             Scanner inputFile = getFile(console);
-            System.out.println(binFileConvert(inputFile));
+            String output = binFileConvert(inputFile);
+            // outputs to file or terminal
+            if (getOutputMode(console)) {
+                strToFile(console, output);
+                System.out.println("Result printed to file.");
+            } else System.out.println(output);
+
         } else {
             // convert from terminal input
             System.out.println("Input a string to convert to binary.");
             String input = getStringInput(console, "(input): ");
-            System.out.println(binLineConvert(input));
+            String output = binLineConvert(input);
+            // outputs to file or terminal
+            if (getOutputMode(console)) {
+                strToFile(console, output);
+                System.out.println("Result printed to file.");
+            } else System.out.println(output);
         }
 
     }
