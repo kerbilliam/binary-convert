@@ -6,7 +6,7 @@ public class StringToBinary {
     private static final String DEFAULT_FILE_OUTPUT = "outputFiles/out.txt";
     // Asks for an input from user and returns it as string
     // Type messeage you want to display next to user input line
-    // ex: getIntInput("(input): ") --> (input): _
+    // ex: getIntInput([Scanner], "(input): ") --> (input): _
     public static String getStringInput(Scanner console, String inputIndicator) {
         System.out.print(StrColor.GREEN + inputIndicator + StrColor.RESET);
         String userInput = console.nextLine();
@@ -15,7 +15,7 @@ public class StringToBinary {
 
     // Asks explicitly for an int input from user and returns it
     // Type messeage you want to display next to user input line
-    // ex: getIntInput("(input): ") --> (input): _
+    // ex: getIntInput([Scanner], "(input): ") --> (input): _
     public static int getIntInput(Scanner console, String inputIndicator) {
         while (true) {
             try {
@@ -70,7 +70,7 @@ public class StringToBinary {
         // Display which method has been chosen
         try {
             if (input.charAt(0) == 'y') {
-                System.out.println("Input from File Method has been chosen.");
+                System.out.println(StrColor.GREEN + "Input from File Method has been chosen." + StrColor.RESET);
                 return true;
             } else {
                 System.out.println(StrColor.GREEN + "Manual Method has been chosen." + StrColor.RESET);
@@ -142,18 +142,6 @@ public class StringToBinary {
         PrintStream output = new PrintStream(new File(filePath));
         output.print(in);
         output.close();
-
-
-        // try {
-        //     PrintStream output = new PrintStream(new File(getStringInput(console, "(output file): ")));
-        //     output.print(in);
-        //     output.close();
-    
-        // } catch (FileNotFoundException e) {
-        //     PrintStream output = new PrintStream(new File(DEFAULT_FILE_OUTPUT));
-        //     output.print(in);
-        //     output.close();
-        // } 
     }
 
     public static void main(String[] args) throws FileNotFoundException{
