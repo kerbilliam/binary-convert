@@ -1,0 +1,6 @@
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+# this file is needed to maintain an empty directory in the repository
+# so the default file path works.
