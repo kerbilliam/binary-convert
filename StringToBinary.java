@@ -58,6 +58,7 @@ public class StringToBinary {
     // True = Get input from file
     // False = Get input manually
     public static boolean getInputMode(Scanner console) {
+        System.out.println("Choose an input method.");
         System.out.println("Manual Method: Manually type your input into the terminal.\n" + 
         "Input from File Method: Type the location of a text file into the terminal.");
         System.out.println(StrColor.CYAN + "Default input method is manual");
@@ -108,16 +109,27 @@ public class StringToBinary {
         return output;
     }
 
+    // Asks user if they want to output to a file
+    // True = output to file
+    // False = output to terminal
+    public static boolean getOutputMode(Scanner console) {
+        System.out.println("Choose an output method.");
+        System.out.println(StrColor.CYAN + "Default output method is to terminal." + StrColor.RESET);
+        System.out.println(StrColor.YELLOW + "Output to file?" + StrColor.RESET);
+        String input = getStringInput(console, "(Yes?): ").toLowerCase();
+        if (input.charAt(0) == 'y') return true;
+        else return false;
+    }
+
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
 
-        System.out.println("Choose an input method.");
-        // If player has chosen to input from file
         if (getInputMode(console)) {
-            // function to read from file
+            // Convert from file
             Scanner inputFile = getFile(console);
             System.out.println(binFileConvert(inputFile));
         } else {
+            // convert from terminal input
             System.out.println("Input a string to convert to binary.");
             String input = getStringInput(console, "(input): ");
             System.out.println(binLineConvert(input));
