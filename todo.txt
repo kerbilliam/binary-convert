@@ -1,7 +1,0 @@
-Things to get done:
-
-file input method
-
-output binary with leading 0s
-
-output to file or terminal method
