@@ -88,24 +88,35 @@ public class StringToBinary {
         return binOutput;
     }
 
-    public static File getFile(Scanner console) {
+    public static Scanner getFile(Scanner console) {
         while (true) {
-            File file = new File(getStringInput(console, "(file): "));
-            if (file.exists()) return file;
-            else {
-                System.out.println(StrColor.RED + "File not found!");
+            try {
+                Scanner file = new Scanner(new File(getStringInput(console, "(file): ")));
+                return file;
+            } catch (FileNotFoundException e) {
+                System.out.println(StrColor.RED + "File not found!" + StrColor.RESET);
             }
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static String binFileConvert(Scanner file) {
+        String output = "";
+        while (file.hasNextLine()) {
+            output += binLineConvert(file.nextLine());
+            if (file.hasNextLine()) output += "\n";
+        }
+        return output;
+    }
+
+    public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
 
         System.out.println("Choose an input method.");
         // If player has chosen to input from file
         if (getInputMode(console)) {
             // function to read from file
-            Scanner file = new Scanner(new File(getStringInput(console, "(file): ")));
+            Scanner inputFile = getFile(console);
+            System.out.println(binFileConvert(inputFile));
         } else {
             System.out.println("Input a string to convert to binary.");
             String input = getStringInput(console, "(input): ");
