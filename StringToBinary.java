@@ -134,6 +134,9 @@ public class StringToBinary {
     }
 
     public static void strToFile(Scanner console, String in) throws FileNotFoundException{
+        System.out.println("Input existing or new file location.");
+        System.out.println(StrColor.CYAN + "Default file location: " + StrColor.YELLOW + DEFAULT_FILE_OUTPUT + StrColor.RESET);
+
         String filePath = getStringInput(console, "(output file): ");
         if (filePath.isEmpty()) filePath = DEFAULT_FILE_OUTPUT;
         PrintStream output = new PrintStream(new File(filePath));
@@ -162,8 +165,6 @@ public class StringToBinary {
             String output = binFileConvert(inputFile);
             // outputs to file or terminal
             if (getOutputMode(console)) {
-                System.out.println("Input existing or new file location.");
-                System.out.println(StrColor.CYAN + "Default file location: '" + StrColor.YELLOW + DEFAULT_FILE_OUTPUT + "'" + StrColor.RESET);
                 strToFile(console, output);
                 System.out.println("Result printed to file.");
             } else System.out.println(output);
