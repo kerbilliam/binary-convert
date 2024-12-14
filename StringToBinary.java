@@ -65,16 +65,28 @@ public class StringToBinary {
         }
     }
 
+    // runs wordToBinary for each word on a line
+    public static String binLineConvert(String input) {
+        Scanner line = new Scanner(input);
+        String binOutput = "";
+        while (line.hasNext()) {
+            binOutput += wordToBinary(line.next());
+            if (line.hasNext()) binOutput += " | ";
+        }
+        line.close();
+        return binOutput;
+    }
+
     public static void main(String[] args) {
         System.out.println("Choose an input method.");
         // If player has chosen to input from file
         if (getInputMode()) {
             // function to read from file
         } else {
-            // function to read from terminal input
+            System.out.println("Input a string to convert to binary.");
+            System.out.println(wordToBinary(getStringInput("(input): ")));
+    
         }
-        System.out.println("Input a string to convert to binary.");
-        System.out.println(wordToBinary(getStringInput("(input): ")));
 
     }
 }
