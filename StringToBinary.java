@@ -5,11 +5,9 @@ public class StringToBinary {
     // Asks for an input from user and returns it as string
     // Type messeage you want to display next to user input line
     // ex: getIntInput("(input): ") --> (input): _
-    public static String getStringInput(String inputIndicator) {
-        Scanner console = new Scanner(System.in);
+    public static String getStringInput(Scanner console, String inputIndicator) {
         System.out.print(ColoredOutput.GREEN + inputIndicator + ColoredOutput.RESET);
         String userInput = console.nextLine();
-        console.close();
         return userInput;
     }
 
@@ -35,6 +33,7 @@ public class StringToBinary {
     }
 
     // Converts every character within a line of input String to its ASCII binary equivalent
+    // NEED TO WORK ON HOW TO KEEP LEADING 0s
     public static String wordToBinary(String input) {
         String binOutput = "";
         for (int i = 0; i < input.length(); i++) {
@@ -47,12 +46,12 @@ public class StringToBinary {
     // Asks user if they want to convert strings from file
     // True = Get input from file
     // False = Get input manually
-    public static boolean getInputMode() {
+    public static boolean getInputMode(Scanner console) {
         System.out.println("Manual Method: Manually type your input into the terminal.\n" + 
         "Input from File Method: Type the location of a text file into the terminal.");
         System.out.println(ColoredOutput.CYAN + "Default input method is manual");
         System.out.println(ColoredOutput.YELLOW + "Input from file?" + ColoredOutput.RESET);
-        String input = getStringInput("(Yes?): ");
+        String input = getStringInput(console, "(Yes?): ");
         input = input.toLowerCase();
 
         // Display which method has been chosen
@@ -71,21 +70,24 @@ public class StringToBinary {
         String binOutput = "";
         while (line.hasNext()) {
             binOutput += wordToBinary(line.next());
-            if (line.hasNext()) binOutput += " | ";
+            // adds space in binary
+            if (line.hasNext()) binOutput += "00100000 ";
         }
         line.close();
         return binOutput;
     }
 
     public static void main(String[] args) {
+        Scanner console = new Scanner(System.in);
+
         System.out.println("Choose an input method.");
         // If player has chosen to input from file
-        if (getInputMode()) {
+        if (getInputMode(console)) {
             // function to read from file
         } else {
             System.out.println("Input a string to convert to binary.");
-            System.out.println(wordToBinary(getStringInput("(input): ")));
-    
+            String input = getStringInput(console, "(input): ");
+            System.out.println(binLineConvert(input));
         }
 
     }
