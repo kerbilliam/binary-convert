@@ -67,11 +67,16 @@ public class StringToBinary {
         input = input.toLowerCase();
 
         // Display which method has been chosen
-        if (input.charAt(0) == 'y') {
-            System.out.println("Input from File Method has been chosen.");
-            return true;
-        } else {
-            System.out.println(StrColor.GREEN + "Manual Method has been chosen." + StrColor.RESET);
+        try {
+            if (input.charAt(0) == 'y') {
+                System.out.println("Input from File Method has been chosen.");
+                return true;
+            } else {
+                System.out.println(StrColor.GREEN + "Manual Method has been chosen." + StrColor.RESET);
+                return false;
+            }
+    
+        } catch (StringIndexOutOfBoundsException e) {
             return false;
         }
     }
@@ -117,8 +122,13 @@ public class StringToBinary {
         System.out.println(StrColor.CYAN + "Default output method is to terminal." + StrColor.RESET);
         System.out.println(StrColor.YELLOW + "Output to file?" + StrColor.RESET);
         String input = getStringInput(console, "(Yes?): ").toLowerCase();
-        if (input.charAt(0) == 'y') return true;
-        else return false;
+        try {
+            if (input.charAt(0) == 'y') return true;
+            else return false;
+    
+        } catch (StringIndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
     public static void strToFile(Scanner console, String in) throws FileNotFoundException{
