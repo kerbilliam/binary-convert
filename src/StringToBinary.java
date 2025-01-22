@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.*;
 
 public class StringToBinary {
-    private static final String DEFAULT_FILE_OUTPUT = "outputFiles/out.txt";
+    // private static final String DEFAULT_FILE_OUTPUT = "outputFiles/out.txt";
     // Asks for an input from user and returns it as string
     // Type messeage you want to display next to user input line
     // ex: getIntInput([Scanner], "(input): ") --> (input): _
@@ -96,15 +96,10 @@ public class StringToBinary {
         return binOutput;
     }
 
-    public static Scanner getFile(Scanner console) {
-        while (true) {
-            try {
-                Scanner file = new Scanner(new File(getStringInput(console, "(file): ")));
-                return file;
-            } catch (FileNotFoundException e) {
-                System.out.println(StrColor.RED + "File not found!" + StrColor.RESET);
-            }
-        }
+    public static Scanner getFile(String input) throws FileNotFoundException {
+        Scanner file = new Scanner(new File(input));
+        return file;
+            
     }
 
     public static String binFileConvert(Scanner file) {
@@ -133,41 +128,36 @@ public class StringToBinary {
         }
     }
 
-    public static void strToFile(Scanner console, String in) throws FileNotFoundException{
-        System.out.println("Input existing or new file location.");
-        System.out.println(StrColor.CYAN + "Default file location: " + StrColor.YELLOW + DEFAULT_FILE_OUTPUT + StrColor.RESET);
-
-        String filePath = getStringInput(console, "(output file): ");
-        if (filePath.isEmpty()) filePath = DEFAULT_FILE_OUTPUT;
+    public static void strToFile(String in, String filePath) throws FileNotFoundException{
         PrintStream output = new PrintStream(new File(filePath));
         output.print(in);
         output.close();
     }
 
-    public static void main(String[] args) throws FileNotFoundException{
-        Scanner console = new Scanner(System.in);
+    // public static void main(String[] args) throws FileNotFoundException{
+    //     Scanner console = new Scanner(System.in);
 
-        if (getInputMode(console)) {
-            // convert from file
-            Scanner inputFile = getFile(console);
-            String output = binFileConvert(inputFile);
-            // outputs to file or terminal
-            if (getOutputMode(console)) {
-                strToFile(console, output);
-                System.out.println("Result printed to file.");
-            } else System.out.println(output);
+    //     if (getInputMode(console)) {
+    //         // convert from file
+    //         Scanner inputFile = getFile(console);
+    //         String output = binFileConvert(inputFile);
+    //         // outputs to file or terminal
+    //         if (getOutputMode(console)) {
+    //             strToFile(console, output);
+    //             System.out.println("Result printed to file.");
+    //         } else System.out.println(output);
 
-        } else {
-            // convert from terminal input
-            System.out.println("Input a string to convert to binary.");
-            String input = getStringInput(console, "(input): ");
-            String output = binLineConvert(input);
-            // outputs to file or terminal
-            if (getOutputMode(console)) {
-                strToFile(console, output);
-                System.out.println("Result printed to file.");
-            } else System.out.println(output);
-        }
+    //     } else {
+    //         // convert from terminal input
+    //         System.out.println("Input a string to convert to binary.");
+    //         String input = getStringInput(console, "(input): ");
+    //         String output = binLineConvert(input);
+    //         // outputs to file or terminal
+    //         if (getOutputMode(console)) {
+    //             strToFile(console, output);
+    //             System.out.println("Result printed to file.");
+    //         } else System.out.println(output);
+    //     }
 
-    }
+    // }
 }

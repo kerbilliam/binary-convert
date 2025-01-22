@@ -2,3 +2,5 @@ reflection.txt
 testing.java
 inputFiles
 outputFiles/*
+.vscode
+bin
